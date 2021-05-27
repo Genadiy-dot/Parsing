@@ -35,7 +35,7 @@ def _parser_hh(vacancy):
     html = requests.get(link, params=params, headers=headers)
 
     if html.ok:
-        parsed_html = bs(html.text, 'html.parser')
+        parsed_html = BeautifulSoup(html.text, 'html.parser')
 
         page_block = parsed_html.find('div', {'data-qa': 'pager-block'})
         if not page_block:
@@ -48,7 +48,7 @@ def _parser_hh(vacancy):
         html = requests.get(link, params=params, headers=headers)
 
         if html.ok:
-            parsed_html = bs(html.text, 'html.parser')
+            parsed_html = BeautifulSoup(html.text, 'html.parser')
 
             vacancy_items = parsed_html.find('div', {'data-qa': 'vacancy-serp__results'}) \
                 .find_all('div', {'class': 'vacancy-serp-item'})
@@ -116,25 +116,25 @@ def _parser_item_hh(item):
             salary_max = int(salary[1])
 
 
-salary_currency = salary[2]
+    salary_currency = salary[2]
 
-vacancy_date['salary_min'] = salary_min
-vacancy_date['salary_max'] = salary_max
-vacancy_date['salary_currency'] = salary_currency
+    vacancy_date['salary_min'] = salary_min
+    vacancy_date['salary_max'] = salary_max
+    vacancy_date['salary_currency'] = salary_currency
 
 # link
-is_ad = item.find('span', {'class': 'vacancy-serp-item__controls-item vacancy-serp-item__controls-item_last'}) \
+    is_ad = item.find('span', {'class': 'vacancy-serp-item__controls-item vacancy-serp-item__controls-item_last'}) \
     .getText()
 
-vacancy_link = item.find('div', {'class': 'resume-search-item__name'}) \
+    vacancy_link = item.find('div', {'class': 'resume-search-item__name'}) \
     .find('a')['href']
 
-if is_ad != 'Реклама':
+    if is_ad != 'Реклама':
     vacancy_link = vacancy_link.split('?')[0]
 
-vacancy_date['vacancy_link'] = vacancy_link
+    vacancy_date['vacancy_link'] = vacancy_link
 
 # site
-vacancy_date['site'] = 'hh.ru'
+    vacancy_date['site'] = 'hh.ru'
 
-return vacancy_date
+    return vacancy_date
