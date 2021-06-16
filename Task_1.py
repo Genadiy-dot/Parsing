@@ -25,15 +25,16 @@ url = "https://news.mail.ru/"
 response = requests.get(url, headers=headers)
 
 root = html.fromstring(response.text)
-news = root.xpath("//div[@class='newsitem.newsitem_height_fixed.newsitem_height_fixed_primary.js-ago-wrapper']")
+news = root.xpath("//div[@class='newsitem newsitem_height_fixed newsitem_height_fixed_primary js-ago-wrapper']")
 
+print(response.content)
 print(news[0])
 print(type(news[0]))
-# for news_item in news:
-#     source_name = news_item.xpath(".//span class='hdr__text'")
-#     href = news_item.xpath(".//div class='article__intro.meta-speakable-intro p'")
-#     name = news_item.xpath(".//h1 class='hdr__inner'")
-#     publication_date = news_item.xpath(".//span class='note__text.breadcrumbs__text.js-ago datetime'")
-    #print(source_name, href, name, publication_date)
+#for news_item in news:
+   # source_name = news_item.xpath(".//a class='newsitem__title link-holder'")
+    # href = news_item.xpath(".//span class='newsitem__param'")
+    # name = news_item.xpath(".//span class='cell'")
+    # publication_date = news_item.xpath(".//span class='newsitem__param is-ago'")
+   #print(source_name, href, name, publication_date)
 
 
